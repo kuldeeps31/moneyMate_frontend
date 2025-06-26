@@ -1,0 +1,35 @@
+.history-container {
+  max-width: 1005;
+  margin: auto;
+  padding: 20px;
+}
+
+.filter-box {
+  display: flex;
+  gap: 10px;
+
+  margin-bottom: 20px;
+}
+
+.filter-box input {
+  padding: 8px;
+  flex: 1;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.history-table th,
+.history-table td {
+  border: 1px solid #ccc;
+  background-color: black;
+  padding: 10px;
+  text-align: center;
+}
+
+.summary {
+  margin-top: 20px;
+  font-weight: bold;
+}
