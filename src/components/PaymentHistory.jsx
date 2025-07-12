@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 //import "../styles/paymentHistory.css";
 const apiBaseUrl = import.meta.env.VITE_API_URL;
-
+import "../styles/paymentHistory.css";
 
 
 const PaymentHistory = () => {
