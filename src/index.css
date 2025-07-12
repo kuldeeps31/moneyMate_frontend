@@ -10,3 +10,26 @@ body {
   background-color: #fff;
   color: #333;
 }
+
+
+
+
+
+.refresh-banner {
+  position: fixed;
+  bottom: 0;
+  /*background: #222;*/
+  color: black;
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  z-index: 999;
+}
+.refresh-banner button {
+  background: #00c853;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}

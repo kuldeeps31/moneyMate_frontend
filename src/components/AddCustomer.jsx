@@ -3,6 +3,9 @@ import { useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../styles/AddCustomer.css";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
+
+
 import { 
   FiUser, 
   FiPhone, 
@@ -114,7 +117,7 @@ const AddCustomer = () => {
   const [itemOptions, setItemOptions] = useState([]);
   const [itemInputValues, setItemInputValues] = useState({});
   const [items, setItems] = useState([
-    { name: '', quantity: 1, pricePerUnit: 0, totalPrice: 0 }
+    { name: '', quantity: 0, pricePerUnit: 0, totalPrice: 0 }
   ]);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -125,7 +128,13 @@ const AddCustomer = () => {
 
   // Fetch item dropdown options
   useEffect(() => {
-    axios.get("http://localhost:8080/api/items")
+
+    //axios.get(`${import.meta.env.VITE_API_URL}/api/items`)
+    //console.log("API BASE URL:", import.meta.env.VITE_API_URL);
+      axios.get(`${apiBaseUrl}/api/items`)
+       
+//yha change kra
+    //axios.get("http://localhost:8080/api/items")
       .then(res => {
         const options = res.data.items.map(i => ({ value: i.name, label: i.name }));
         setItemOptions(options);
@@ -212,10 +221,19 @@ const AddCustomer = () => {
       setIsLoading(false);
       return;
     }
+//addeed new 
+  let nextPaymentDate = formData.nextPaymentDate;
+
+if (!nextPaymentDate && balanceAmount > 0) {
+  const paymentDateObj = new Date(formData.paymentDate);
+  paymentDateObj.setMonth(paymentDateObj.getMonth() + 1);
+  nextPaymentDate = paymentDateObj.toISOString().split("T")[0];
+}
 
     try {
       const payload = {
         ...formData,
+        nextPaymentDate,
         items: items.map(item => ({
           name: item.name,
           quantity: item.quantity,
@@ -225,8 +243,10 @@ const AddCustomer = () => {
         balanceAmount,
       };
 
+
+//"http://localhost:8080/api/customers/add",
       const response = await axios.post(
-        "http://localhost:8080/api/customers/add",
+      `${apiBaseUrl}/api/customers/add`,
         payload,
         {
           headers: {
@@ -376,18 +396,19 @@ const AddCustomer = () => {
                   />
                 </div>
                 <input
-                  type="number"
+                  type="text"
                   value={item.quantity}
-                  min="1"
+                  //min="0"
                   onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                   placeholder="Qty"
                   className="form-input item-qty"
                   required
                 />
+
                 <input
-                  type="number"
+                  type="text"
                   value={item.pricePerUnit}
-                  min="0"
+                  //min="0"
                   onChange={(e) => handleItemChange(index, 'pricePerUnit', e.target.value)}
                   placeholder="Price"
                   className="form-input item-price"
@@ -439,7 +460,7 @@ const AddCustomer = () => {
               onChange={handleChange}
               className="form-input"
               disabled={disableNextDate}
-              required={!disableNextDate}
+              required={disableNextDate}
             />
             {disableNextDate && (
               <p className="full-payment-message">
@@ -454,7 +475,7 @@ const AddCustomer = () => {
               Paid Amount (₹)
             </label>
             <input
-              type="number"
+              type="text"
               name="paidAmount"
               value={formData.paidAmount}
               onChange={handleChange}

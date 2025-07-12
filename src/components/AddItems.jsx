@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FiTrash2, FiPlus, FiList, FiSearch, FiX } from "react-icons/fi";
 import Swal from "sweetalert2";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 const AddItem = () => {
   const [itemName, setItemName] = useState("");
@@ -18,7 +19,9 @@ const AddItem = () => {
 
   const fetchItems = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/items");
+      const res = await axios.get(`${apiBaseUrl}/api/items`);
+       
+
       setItems(res.data.items || []);
     } catch (err) {
       toast.error("Failed to load items");
@@ -37,7 +40,8 @@ const AddItem = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:8080/api/items/add",
+          `${apiBaseUrl}/api/items/add`,
+        
         { name: itemName },
         {
           headers: {
@@ -74,7 +78,7 @@ const AddItem = () => {
       if (result.isConfirmed) {
         try {
           const token = localStorage.getItem("token");
-          await axios.delete(`http://localhost:8080/api/items/${id}`, {
+          await axios.delete( `${apiBaseUrl}/api/items/${id}`  , {
             headers: {
               Authorization: `Bearer ${token}`,
             },

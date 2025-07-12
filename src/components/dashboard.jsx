@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 import { 
   FiHome, 
   FiUsers, 
@@ -15,7 +15,8 @@ import {
   FiInbox,
   FiEdit2,
   FiPlusCircle,
-  FiUserPlus
+  FiUserPlus,
+  FiDribbble
 } from 'react-icons/fi';
 import '../styles/Dashboard.css';
 import { Outlet } from 'react-router-dom';
@@ -48,7 +49,7 @@ const Dashboard = () => {
     const fetchAdminProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://localhost:8080/api/admin/profile", {
+        const res = await fetch(`${apiBaseUrl}/api/admin/profile`    , {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -173,6 +174,20 @@ const Dashboard = () => {
               <FiUsers className="nav-icon" />
               <span className="nav-text">View Customers</span>
             </li>
+
+
+             <li 
+              className={`nav-item ${activeTab === 'BillManager' ? 'active' : ''}`}
+              onClick={() => {
+                setActiveTab('BillManager');
+                setMobileMenuOpen(false);
+                 navigate('/dashboard/billManager');
+              }}
+            >
+              <FiDribbble className="nav-icon" />
+              <span className="nav-text">Bill Manager</span>
+            </li>
+
 
             <li 
               className={`nav-item ${activeTab === 'addItems' ? 'active' : ''}`}

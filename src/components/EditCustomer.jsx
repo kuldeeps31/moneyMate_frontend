@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { FiUser, FiPhone, FiHome, FiSave, FiChevronRight } from "react-icons/fi";
 import { toast } from "react-toastify";
 import "../styles/EditCustomer.css";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 const EditCustomer = () => {
   const { id } = useParams();
@@ -29,7 +30,7 @@ const EditCustomer = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(`http://localhost:8080/api/customers/${id}`, {
+        const response = await fetch( `${apiBaseUrl}/api/customers/${id}`  , {
           headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
@@ -61,7 +62,7 @@ const EditCustomer = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`http://localhost:8080/api/customers/${id}`, {
+      const response = await fetch(`${apiBaseUrl}/api/customers/${id}`    , {
         method: "PUT",
         headers: {
           "Authorization": `Bearer ${token}`,

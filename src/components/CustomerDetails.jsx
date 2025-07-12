@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FiPhone, FiHome, FiDollarSign, FiClock, FiChevronRight } from "react-icons/fi";
 import "../styles/CustomerDetails.css";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 const CustomerDetail = () => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const toggleExpand = (idx) => {
       try {
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `http://localhost:8080/api/payment/customer/${id}`,
+        `${apiBaseUrl}/api/payment/customer/${id}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setCustomer(res.data.customer);
@@ -60,7 +61,7 @@ const toggleExpand = (idx) => {
   try {
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`http://localhost:8080/api/export/customer/${customer._id}`, {
+    const res = await fetch(`${apiBaseUrl}/api/export/customer/${customer._id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

@@ -649,6 +649,7 @@
   .action-btn {
     width: 32px;
     height: 32px;
+   /*background-color: ;*/
   }
 }
 
@@ -660,4 +661,96 @@
   .action-btn::before {
     display: none; /* Hide tooltips on very small screens */
   }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  position: relative;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: max-content;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 18px;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.action-btn {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.action-btn.view {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.action-btn.edit {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.action-btn.pay {
+  background-color: #fff8e1;
+  color: #ffa000;
+}
+
+.action-btn.add {
+  background-color: #e0f7fa;
+  color: #00acc1;
+}
+
+.action-btn.reminder {
+  background-color: #f3e5f5;
+  color: #8e24aa;
+}
+
+.action-btn.delete {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }

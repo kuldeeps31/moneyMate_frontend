@@ -1,24 +1,8 @@
 import React, { useState } from "react";
 import "../styles/paymentHistory.css";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
-const sampleData = [
-  {
-    date: "2024-06-01",
-    name: "Ramesh",
-    phone: "9876543210",
-    paid: 300,
-    remaining: 700,
-    nextDate: "2024-06-20",
-  },
-  {
-    date: "2024-06-03",
-    name: "Suresh",
-    phone: "9123456780",
-    paid: 500,
-    remaining: 200,
-    nextDate: "2024-06-15",
-  },
-];
+
 
 const PaymentHistory = () => {
   const [filteredData, setFilteredData] = useState(sampleData);

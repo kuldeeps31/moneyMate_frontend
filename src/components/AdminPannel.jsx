@@ -5,18 +5,25 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 const AdminPanel = () => {
  
 const[customerSummary ,setCustomerSummary]=useState('');
 const[upcoming,setUpcoming]=useState([]);
+const[loading,setLoading]=useState("false");
+
 const Navigate=useNavigate();
 
 useEffect(() => {
+ 
+
+   setLoading(true);
+
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:8080/api/dashboard/summary", {
+      const response = await axios.get(`${apiBaseUrl}/api/dashboard/summary`   , {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("Profile Data:", response.data);
@@ -27,13 +34,14 @@ useEffect(() => {
   };
 
   fetchData();
+  setLoading(false);
 }, []);
 
 useEffect(() => {
 
   const fetchUpcomingPayments = async () => {
     try {
-      const res = await axios.get('http://localhost:8080/api/dashboard/upcoming', {
+      const res = await axios.get(`${apiBaseUrl}/api/dashboard/upcoming`    , {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         }
@@ -56,7 +64,7 @@ const sendReminder = async (customerId) => {
   console.log(customerId);
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.post(`http://localhost:8080/api/customers/reminder/${customerId}`, {}, {
+    const res = await axios.post(`${apiBaseUrl}/api/customers/reminder/${customerId}` , {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -82,6 +90,10 @@ const sendReminder = async (customerId) => {
         <h1>Dashboard Overview</h1>
         <p>Welcome back! Here's what's happening with your business</p>
       </div>
+
+      {loading && 
+      <p>Loading...</p>
+      }
 
       <div className="summary-grid">
         <div className="summary-card">

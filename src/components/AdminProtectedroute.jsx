@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 const ProtectedRoute = () => {
   const token = localStorage.getItem('token');

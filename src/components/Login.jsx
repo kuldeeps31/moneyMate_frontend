@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import '../styles/Login.css';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+const apiBaseUrl = import.meta.env.VITE_API_URL;
+//import {login} from '../'
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -39,7 +41,7 @@ const handleSubmit = async (e) => {
   setErrors({});
 
   try {
-    const response = await fetch('http://localhost:8080/api/auth/login', {
+    const response = await fetch( `${apiBaseUrl}/api/auth/login`    , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,13 +77,13 @@ const handleSubmit = async (e) => {
     <div className="login-container">
       <div className="brand-section">
         <div className="brand-overlay"></div>
-        <img src="src/assets/login_page.jpg" alt="Wholesale Shop" className="brand-image" />
+        <img src="/login_page.jpg" alt="Wholesale Shop" className="brand-image" />
         <div className="brand-content">
           <h1 className="neon-text">MoneyMate</h1>
           <p className="tagline glow">Manage Payments. Grow Trust</p>
           <div className="quote">
             {/*<p className="glow">"Trusted by businesses nationwide"</p>*/}
-            <p className="glow">"Quality products at competitive prices"</p>
+            <p className="glow">"Team-codes.book"</p>
           </div>
         </div>
       </div>

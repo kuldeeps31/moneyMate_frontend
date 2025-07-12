@@ -3,7 +3,6 @@ import ProtectedRoute from './components/AdminProtectedroute'
 import './App.css'
 import { ToastContainer } from 'react-toastify'
 import Home from './pages/Home'
-//import LoginPage from './components/Login'
 import Login from './components/Login'
 import { Navigate } from 'react-router-dom'
 import Dashboard from './components/dashboard'
@@ -18,10 +17,27 @@ import EditCustomer from './components/EditCustomer'
 import PaymentHistory from './components/PaymentHistory'
 import DashChart from './components/Chart'
 import AddItem from './components/AddItems'
+import BillManager from './components/BillManager'
+import { useEffect } from 'react';
+import useServiceWorkerUpdate from './hooks/useServiceWorkerUpdate'
+import NetworkToast from './components/NetworkToast'
+
 
 
 function App() {
   const [count, setCount] = useState(0)
+
+
+    const { isUpdateAvailable, updateServiceWorker } = useServiceWorkerUpdate()
+
+  useEffect(() => {
+    if (isUpdateAvailable) {
+      toast.info('🚀 New update available! Click to refresh.', {
+        onClick: updateServiceWorker,
+        autoClose: false
+      })
+    }}, [isUpdateAvailable])
+
 
   return (
     <>
@@ -48,15 +64,16 @@ function App() {
                   <Route path="PaymentHistory" element={<PaymentHistory />} ></Route>
                        <Route path="DasHChart" element={<DashChart />} ></Route>
                        <Route path='addItems' element={<AddItem/>}></Route>
-          {/*<Route path="users" element={<UserManagement />} />*/}
-          {/*<Route path="bookingManagement" element={<BookingManagement />} />*/}
+<Route  path='billManager' element={<BillManager/>} ></Route>
+
+        
         </Route>
       </Route>
 
       {/* Agar koi aur path hai, toh login ya home pe redirect kar sakte ho */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
-
+<NetworkToast />
     </>
   )
 }

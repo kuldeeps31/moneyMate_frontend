@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/CustomerList.css";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 
 import { 
@@ -90,7 +91,7 @@ const CustomerList = () => {
       }
 
       const response = await axios.get(
-        'http://localhost:8080/api/customers',
+         `${apiBaseUrl}/api/customers` ,
         {
           params,
           headers: {
@@ -163,8 +164,8 @@ const handleNavigatepayment = async (id) => {
 
   try {
     const token = localStorage.getItem("token"); //  Get token from localStorage
-
-    const res = await axios.get(`http://localhost:8080/api/customers/${id}`, {
+//`http://localhost:8080/api/customers/${id}` ye purana hai
+    const res = await axios.get(`${apiBaseUrl}/api/customers/${id}`   , {
       headers: {
         Authorization: `Bearer ${token}`, // 🛡️ Send token in header
       },
@@ -182,7 +183,7 @@ const sendReminder = async (customerId) => {
   console.log(customerId);
   try {
     const token = localStorage.getItem("token");
-    const res = await axios.post(`http://localhost:8080/api/customers/reminder/${customerId}`, {}, {
+    const res = await axios.post( `${apiBaseUrl}/api/customers/reminder/${customerId}`   , {}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -201,7 +202,7 @@ const sendReminder = async (customerId) => {
 const handleNavigateview = async (id) => {
   console.log("hitt");
   const token = localStorage.getItem("token");
-  const res = await axios.get(`http://localhost:8080/api/customers/${id}`, {
+  const res = await axios.get(`${apiBaseUrl}/api/customers/${id}`        , {
     headers: { Authorization: `Bearer ${token}` },
   });
   navigate(
@@ -238,9 +239,10 @@ const handleDeleteCustomer = async (customerId) => {
   try {
     const token = localStorage.getItem('token'); // or sessionStorage.getItem('token')
 
-    const res = await fetch(`http://localhost:8080/api/customers/customers/${customerId}`, {
+    const res = await fetch(`${apiBaseUrl}/api/customers/customers/${customerId}`      , {
       method: 'DELETE',
       headers: {
+
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}` // ✅ Send the token
       }
@@ -267,7 +269,7 @@ const handleDeleteCustomer = async (customerId) => {
 const handleExportAll = async () => {
   try {
     const token = localStorage.getItem("token");
-    const res = await fetch("http://localhost:8080/api/export/customers", {
+    const res = await fetch(`${apiBaseUrl}/api/export/customers` , {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -465,54 +467,70 @@ const handleExportAll = async () => {
                             </>
                           )}
                         </td>
-                        <td className="actions">
-                          <button 
-                            className="action-btn view"
-                            onClick={() => handleNavigateview(cust._id)}
-                            title="View Details"
-                          >
-                            <FiEye />
-                          </button>
-                          <button 
-                            className="action-btn edit"
-                            onClick={() => handleNavigateedit(cust._id)}
-                            title="Edit Customer"
-                          >
-                            <FiEdit2 />
-                          </button>
-                          {!isPaidFull && (
-                            <button 
-                              className="action-btn pay"
-                              onClick={() => handleNavigatepayment(cust._id)}
-                              title="Add Payment"
-                            >
-                              <FiDollarSign />
-                            </button>
-                          )}
+                       <td className="actions">
+  <div className="tooltip">
+    <button 
+      className="action-btn view"
+      onClick={() => handleNavigateview(cust._id)}
+    >
+      <FiEye />
+    </button>
+    <span className="tooltiptext">View Details</span>
+  </div>
+  
+  <div className="tooltip">
+    <button 
+      className="action-btn edit"
+      onClick={() => handleNavigateedit(cust._id)}
+    >
+      <FiEdit2 />
+    </button>
+    <span className="tooltiptext">Edit Customer</span>
+  </div>
+  
+  {!isPaidFull && (
+    <div className="tooltip">
+      <button 
+        className="action-btn pay"
+        onClick={() => handleNavigatepayment(cust._id)}
+      >
+        <FiDollarSign />
+      </button>
+      <span className="tooltiptext">Add Payment</span>
+    </div>
+  )}
 
-                            <button 
-                            className="action-btn add"
-                            onClick={() => handleAddCustomers(cust)}
-                            title="update customer"
-                          >
-                            <FiRepeat />
-                          </button>
-  <button 
-                            className="action-btn delete"
-                            onClick={() => sendReminder(cust._id)}
-                            title="reminder customer"
-                          >
-                            <FiPhoneForwarded />
-                          </button>
-                          <button 
-                            className="action-btn delete"
-                            onClick={() => handleDeleteCustomer(cust._id)}
-                            title="Delete customer"
-                          >
-                            <FiDelete />
-                          </button>
-                           
-                        </td>
+  <div className="tooltip">
+    <button 
+      className="action-btn add"
+      onClick={() => handleAddCustomers(cust)}
+    >
+      <FiRepeat />
+    </button>
+    <span className="tooltiptext">Update Customer</span>
+  </div>
+  
+  <div className="tooltip">
+    <button 
+      className="action-btn reminder"
+      onClick={() => sendReminder(cust._id)}
+    >
+      <FiPhoneForwarded />
+    </button>
+    <span className="tooltiptext">Send Reminder</span>
+  </div>
+  
+  <div className="tooltip">
+    <button 
+      className="action-btn delete"
+      onClick={() => handleDeleteCustomer(cust._id)}
+    >
+      <FiDelete />
+    </button>
+    <span className="tooltiptext">Delete Customer</span>
+  </div>
+</td>
+
                       </tr>
                     );
                   })

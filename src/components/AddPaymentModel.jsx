@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "../styles/AddPaymentModel.css";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 const AddPaymentModal = ({ isOpen, onClose, customerId, onPaymentSuccess }) => {
   const [amountPaid, setAmountPaid] = useState('');

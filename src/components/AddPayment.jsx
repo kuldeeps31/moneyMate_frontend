@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import "../styles/addPayment.css";
 import { FiChevronRight } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 import axios from "axios";
+
 import { toast } from "react-toastify";
 
 const AddPayment = () => {
   const [amount, setAmount] = useState("");
   const [paymentDate, setPaymentDate] = useState(new Date().toISOString().split("T")[0]);
   const [nextDate, setNextDate] = useState("");
+    const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,8 +23,11 @@ const AddPayment = () => {
       navigate("/dashboard/viewCustomers");
     }
   }, [customer, navigate]);
+
+
   const handleSubmit = async (e) => {
   e.preventDefault();
+    setLoading(true); // 🔁 Start loading
 
   try {
     const numericAmount = Number(amount);
@@ -45,7 +51,8 @@ const AddPayment = () => {
       body.nextPaymentDate = nextDate;
     }
 
-    const res = await axios.post("http://localhost:8080/api/payment/update", body, {
+
+    const res = await axios.post(`${apiBaseUrl}/api/payment/update`, body, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -66,11 +73,15 @@ const AddPayment = () => {
     console.error("❌ Payment Update Failed", err);
     alert("❌ Payment update failed. Try again.");
   }
+
+  setLoading(false); // 🔚 End loading
 };
 
   if (!customer) return null;
 
 
+  console.log("i will do it and  is  bsi");
+ 
   
 
   return (
@@ -82,6 +93,7 @@ const AddPayment = () => {
           <FiChevronRight className="btn-icon" /> Back
         </button>
       </div>
+
 
       <div className="summary-box">
         <h4>🔁 Last Transaction</h4>
@@ -96,12 +108,12 @@ const AddPayment = () => {
       <form onSubmit={handleSubmit} className="payment-form">
         <label>New Payment Amount (₹)</label>
         <input
-          type="number"
+          type="text"
           value={amount}
           required
           onChange={(e) => setAmount(e.target.value)}
           placeholder="Enter payment amount"
-          min="1"
+          //min="1"
           max={customer.remainingAmount}
         />
 
@@ -141,7 +153,16 @@ const AddPayment = () => {
   );
 })()}
 
-        <button type="submit">Submit Payment</button>
+       <button type="submit" disabled={loading}>
+  {loading ? (
+    <>
+      <span className="spinner" /> Processing...
+    </>
+  ) : (
+    "Submit Payment"
+  )}
+</button>
+
       </form>
 
 

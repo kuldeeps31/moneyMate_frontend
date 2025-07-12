@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Chart, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend,PointElement,LineElement } from 'chart.js';
 import styles from '../styles/DashChart.module.css';
 import { Line } from "react-chartjs-2";
+const apiBaseUrl = import.meta.env.VITE_API_URL;
 
 
 
@@ -39,7 +40,7 @@ useEffect(() => {
   const fetchRevenue = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8080/api/chart/revenue-and-sales", {
+      const res = await fetch( `${apiBaseUrl}/api/chart/revenue-and-sales`,  {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -96,7 +97,7 @@ useEffect(() => {
   const fetchCustomerGrowth = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:8080/api/chart/customer-growth", {
+      const res = await fetch(`${apiBaseUrl}/api/chart/customer-growth`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
