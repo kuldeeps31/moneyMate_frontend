@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../styles/AddPayment.css"
+import "../styles/addPayment.css"
 import { FiChevronRight } from "react-icons/fi";
 import { useNavigate, useLocation } from "react-router-dom";
 const apiBaseUrl = import.meta.env.VITE_API_URL;
