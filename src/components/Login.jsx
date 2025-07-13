@@ -56,13 +56,7 @@ const handleSubmit = async (e) => {
 
     const data = await response.json();
     toast.success('🎉 Login Successful!');
-    //console.log(data);
-
-    //if (rememberMe) {
-    //  localStorage.setItem('token', data.token);
-    //} else {
-    //  sessionStorage.setItem('token', data.token);
-    //}
+    
     localStorage.setItem('token', data.token);
 
     navigate('/dashboard');
@@ -83,7 +77,7 @@ const handleSubmit = async (e) => {
           <p className="tagline glow">Manage Payments. Grow Trust</p>
           <div className="quote">
             {/*<p className="glow">"Trusted by businesses nationwide"</p>*/}
-            <p className="glow">"Team-codes.book"</p>
+            {/*<p className="glow">"Team-codes.book"</p>*/}
           </div>
         </div>
       </div>
