@@ -212,7 +212,7 @@ const token = localStorage.getItem("token");
       }
     } catch (err) {
       toast.error("Failed to fetch bills");
-      console.error("Error fetching bills:", err);
+      //console.error("Error fetching bills:", err);
     } finally {
       setLoading(false);
     }

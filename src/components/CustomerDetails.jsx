@@ -32,10 +32,10 @@ const toggleExpand = (idx) => {
         );
         setCustomer(res.data.customer);
         setPayments(res.data.payments);
-        console.log( ".....",  res.data.customer);
-        console.log("✅ Fetched payments:", res.data.payments.length, res.data.payments)
+        //console.log( ".....",  res.data.customer);
+        //console.log("✅ Fetched payments:", res.data.payments.length, res.data.payments)
       } catch (err) {
-        console.error("Failed to fetch customer:", err);
+        //console.error("Failed to fetch customer:", err);
         alert("❌ Customer not found");
         navigate("/dashboard/viewCustomers");
       } finally {

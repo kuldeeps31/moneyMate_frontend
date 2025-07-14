@@ -226,7 +226,7 @@ const Dashboard = () => {
           </ul>
         </nav>
         <div className="sidebar-footer glow">
-          <p>© {new Date().getFullYear()} From Passion to Product • Made by Kuldeep with 💙</p>
+          <p>© {new Date().getFullYear()} From Passion to Product • Made by Team codesbook with 💙</p>
         </div>
       </aside>
 

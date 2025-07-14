@@ -9,27 +9,29 @@ import { BrowserRouter } from 'react-router-dom';
 import { useRegisterSW } from 'virtual:pwa-register/react';
 
 const RootComponent = () => {
-  const {
-    needRefresh,
-    offlineReady,
-    updateServiceWorker
-  } = useRegisterSW({
-    onOfflineReady() {
-      console.log('✅ App is ready to work offline');
-    },
-    onNeedRefresh() {
-      console.log('🔄 New content available');
-    },
-  });
+// isko infuture shi krduga bad mai
+ 
+  //const {
+  //  needRefresh,
+  //  offlineReady,
+  //  updateServiceWorker
+  //} = useRegisterSW({
+  //  onOfflineReady() {
+  //    console.log('✅ App is ready to work offline');
+  //  },
+  //  onNeedRefresh() {
+  //    console.log('🔄 New content available');
+  //  },
+  //});
 
   return (
     <>
-      {needRefresh && (
+      {/*{needRefresh && (
         <div className="refresh-banner">
           <p>🔄 New update available!</p>
           <button onClick={() => updateServiceWorker(true)}>Refresh</button>
         </div>
-      )}
+      )}*/}
       <BrowserRouter>
         <App />
       </BrowserRouter>

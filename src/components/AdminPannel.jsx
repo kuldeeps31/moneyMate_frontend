@@ -26,7 +26,7 @@ useEffect(() => {
       const response = await axios.get(`${apiBaseUrl}/api/dashboard/summary`   , {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("Profile Data:", response.data);
+      //console.log("Profile Data:", response.data); 
       setCustomerSummary(response.data);
     } catch (error) {
       console.error("Error fetching profile:", error.response?.data || error.message);

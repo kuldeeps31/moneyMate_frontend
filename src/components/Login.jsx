@@ -165,7 +165,7 @@ const handleSubmit = async (e) => {
                  </div>
         
         <div className="footer glow">
-          <p>© {new Date().getFullYear()} RM WHOLESALE. ALL RIGHTS RESERVED.</p>
+          <p>© {new Date().getFullYear()} codes.book ALL RIGHTS RESERVED.</p>
           <div className="footer-links">
             <a href="/privacy" className="neon-link">PRIVACY POLICY</a>
             <a href="/terms" className="neon-link">TERMS OF SERVICE</a>
