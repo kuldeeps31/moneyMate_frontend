@@ -209,14 +209,7 @@ const sendReminder = async (customerId) => {
           >
             <FiList className="btn-icon" /> <span>View All</span>
           </button>
-          {/*<button className="action-btn-panel"
-           onClick={()=>Navigate('/dashboard/PaymentHistory')}
-          >
-            <FiFileText className="btn-icon" /> <span>Payment History</span>
-          </button>*/}
-          {/*<button className="action-btn-panel">
-            <FiDownload className="btn-icon" /> <span>Export Reports</span>
-          </button>*/}
+        
         </div>
       </div>
     </div>

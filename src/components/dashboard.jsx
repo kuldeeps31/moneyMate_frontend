@@ -85,14 +85,7 @@ const Dashboard = () => {
           >
             {sidebarOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
-          {/*<div className="search-bar">
-            <FiSearch className="search-icon" />
-            <input 
-              type="text" 
-              placeholder="Search..." 
-              className="neon-input"
-            />
-          </div>*/}
+          
         </div>
         <div className="navbar-right">
           <button className="notification-btn neon-button-icon">
@@ -212,17 +205,7 @@ const Dashboard = () => {
               <FiBarChart2 className="nav-icon" />
               <span className="nav-text">View Analytics</span>
             </li>
-            {/*<li 
-              className={`nav-item ${activeTab === 'payments' ? 'active' : ''}`}
-              onClick={() => {
-                setActiveTab('payments');
-                setMobileMenuOpen(false);
-                navigate('/dashboard/PaymentHistory');
-              }}
-            >
-              <FiCreditCard className="nav-icon" />
-              <span className="nav-text">Payments</span>
-            </li>*/}
+           
           </ul>
         </nav>
         <div className="sidebar-footer glow">

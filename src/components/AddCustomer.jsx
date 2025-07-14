@@ -345,93 +345,112 @@ if (!nextPaymentDate && balanceAmount > 0) {
 
           {/* Items Section */}
           <div className="form-group full-width items-section">
-            <label className="form-label section-label">
-              <FiShoppingCart className="input-icon" />
-              Items/Services
-            </label>
-            {items.map((item, index) => (
-              <div key={index} className="item-row">
-                <div className="item-name-container">
-                  <CreatableSelect
-                    styles={customStyles}
-                    isClearable
-                    options={itemOptions}
-                    inputValue={itemInputValues[index] ?? ""}
-                    onInputChange={(inputVal, { action }) => {
-                      if (action === "input-change") {
-                        setItemInputValues((prev) => ({ ...prev, [index]: inputVal }));
-                      }
-                    }}
-                    onChange={(option) => {
-                      const selectedValue = option?.value ?? "";
-                      setItemInputValues((prev) => ({ ...prev, [index]: selectedValue }));
-                      handleItemChange(index, "name", selectedValue);
-                      setTimeout(() => {
-                        const input = inputRefs.current[index];
-                        if (input) {
-                          input.focus();
-                          input.setSelectionRange(selectedValue.length, selectedValue.length);
-                        }
-                      }, 50);
-                    }}
-                    onBlur={() => {
-                      const typed = itemInputValues[index]?.trim();
-                      if (typed) {
-                        handleItemChange(index, "name", typed);
-                      }
-                    }}
-                    placeholder="Search or type item"
-                  />
-                  <input
-                    ref={(el) => (inputRefs.current[index] = el)}
-                    type="text"
-                    value={items[index]?.name || ""}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      setItemInputValues((prev) => ({ ...prev, [index]: value }));
-                      handleItemChange(index, "name", value);
-                    }}
-                    placeholder="Add details e.g. heavy"
-                    className="form-input item-details"
-                  />
-                </div>
-                <input
-                  type="text"
-                  value={item.quantity}
-                  //min="0"
-                  onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
-                  placeholder="Qty"
-                  className="form-input item-qty"
-                  required
-                />
+  <label className="form-label section-label">
+    <FiShoppingCart className="input-icon" />
+    Items/Services
+  </label>
+  
+  {items.map((item, index) => (
+    <div key={index} className="item-row">
+      {/* Item Name - Full width on mobile */}
+      <div className="item-name-container mobile-full-width">
+        <CreatableSelect
+          styles={customStyles}
+          isClearable
+          options={itemOptions}
+          inputValue={itemInputValues[index] ?? ""}
+          onInputChange={(inputVal, { action }) => {
+            if (action === "input-change") {
+              setItemInputValues((prev) => ({ ...prev, [index]: inputVal }));
+            }
+          }}
+          onChange={(option) => {
+            const selectedValue = option?.value ?? "";
+            setItemInputValues((prev) => ({ ...prev, [index]: selectedValue }));
+            handleItemChange(index, "name", selectedValue);
+            setTimeout(() => {
+              const input = inputRefs.current[index];
+              if (input) {
+                input.focus();
+                input.setSelectionRange(selectedValue.length, selectedValue.length);
+              }
+            }, 50);
+          }}
+          onBlur={() => {
+            const typed = itemInputValues[index]?.trim();
+            if (typed) {
+              handleItemChange(index, "name", typed);
+            }
+          }}
+          placeholder="Item name"
+          classNamePrefix="react-select"
+          className="item-select"
+        />
+        <input
+          ref={(el) => (inputRefs.current[index] = el)}
+          type="text"
+          value={items[index]?.name || ""}
+          onChange={(e) => {
+            const value = e.target.value;
+            setItemInputValues((prev) => ({ ...prev, [index]: value }));
+            handleItemChange(index, "name", value);
+          }}
+          placeholder="Details"
+          className="form-input item-details"
+        />
+      </div>
 
-                <input
-                  type="text"
-                  value={item.pricePerUnit}
-                  //min="0"
-                  onChange={(e) => handleItemChange(index, 'pricePerUnit', e.target.value)}
-                  placeholder="Price"
-                  className="form-input item-price"
-                  required
-                />
-                <div className="item-total">₹{(item.quantity * item.pricePerUnit).toFixed(2)}</div>
-                <button
-                  type="button"
-                  onClick={() => removeItem(index)}
-                  className="remove-item-btn"
-                  disabled={items.length <= 1}
-                  aria-label="Remove item"
-                >
-                  <FiTrash2 />
-                </button>
-              </div>
-            ))}
-            <button type="button" onClick={addItem} className="add-item-btn">
-              <FiPlus className="btn-icon" />
-              Add Item
-            </button>
-          </div>
+      {/* Quantity, Price, Total - Row on desktop, stacked on mobile */}
+      <div className="item-inputs-group">
+        <div className="input-group">
+          <span className="mobile-label">Qty</span>
+          <input
+            type="text"
+            value={item.quantity}
+            onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+            placeholder="Qty"
+            className="form-input item-qty"
+            required
+          />
+        </div>
 
+        <div className="input-group">
+          <span className="mobile-label">Price</span>
+          <input
+            type="text"
+            value={item.pricePerUnit}
+            onChange={(e) => handleItemChange(index, 'pricePerUnit', e.target.value)}
+            placeholder="Price"
+            className="form-input item-price"
+            required
+          />
+        </div>
+
+        <div className="input-group total-group">
+          <span className="mobile-label">Total</span>
+          <div className="item-total">₹{(item.quantity * item.pricePerUnit).toFixed(2)}</div>
+        </div>
+
+        <div className="input-group remove-group">
+          <button
+            type="button"
+            onClick={() => removeItem(index)}
+            className="remove-item-btn"
+            disabled={items.length <= 1}
+            aria-label="Remove item"
+          >
+            <FiTrash2 />
+          </button>
+        </div>
+      </div>
+    </div>
+  ))}
+  
+  <button type="button" onClick={addItem} className="add-item-btn">
+    <FiPlus className="btn-icon" />
+    Add Item
+  </button>
+</div>
           {/* Payment Information Section */}
           <div className="form-group">
             <label className="form-label">

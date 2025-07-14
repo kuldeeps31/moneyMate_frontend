@@ -651,6 +651,31 @@
     height: 32px;
    /*background-color: ;*/
   }
+
+    .export-all-btn {
+    padding: 8px 12px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  .export-text {
+    display: none;
+  }
+
+  .export-short {
+    display: none;
+  }
+
+  .export-all-btn i {
+    font-size: 18px;
+    margin-right: 0;
+  }
+
 }
 
 @media (max-width: 576px) {
